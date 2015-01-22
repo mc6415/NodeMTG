@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  script.
+    $(document).ready(function(){
+        $('#textInput').keyup(function(){
+            $('#textOutput').val($('#textInput').val());
+          })
+      })
+  h1= title
+  p Welcome to #{title}
+  div.row
+    div.well.col-lg-3
+      form(method='post', action='test')
+        div.form-group
+          label(for='cardName') Card Name: 
+          input#cardName(type='text', name='cardName')
+        button(type='submit') Search

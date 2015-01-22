@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1 #{title}
+  h6 For the budding collector
+  each card, i in cards
+    div.col-lg-2
+      a(href=card.gatherer_url)
+        img.img-thumbnail(src=card.image_url)
+        h6 #{card.name}
