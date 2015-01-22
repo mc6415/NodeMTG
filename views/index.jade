@@ -13,6 +13,8 @@ block content
     div.well.col-lg-3
       form(method='post', action='test')
         div.form-group
-          label(for='cardName') Card Name: 
-          input#cardName(type='text', name='cardName')
+          label(for='SetName') Core Set:
+          select.form-control#SetName(name='cardName')
+              each set, i in sets
+                option(value=set.name) #{set.name}
         button(type='submit') Search

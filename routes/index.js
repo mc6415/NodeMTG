@@ -2,9 +2,20 @@ var express = require('express');
 var router = express.Router();
 var tutor = require('tutor');
 
+function getSets(req,res,callback){
+  var db = req.db;
+  var collection = db.get('sets');
+
+  collection.find({}, function(err,docs){
+    callback(docs);
+  })
+}
+
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Portal' });
+  getSets(req,res,function(sets){
+    res.render('index', {title:'Portal', sets:sets})
+  })
 });
 
 router.post('/test', function(req,res){
