@@ -10,8 +10,8 @@ block content
   h1= title
   p Welcome to #{title}
   div.row
-    div.well.col-lg-3
-      form(method='post', action='test')
+    div.col-lg-3
+      form(method='post', action='cards')
         div.form-group
           label(for='SetName') Core Set:
           select.form-control#SetName(name='cardName')

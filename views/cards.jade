@@ -1,0 +1,54 @@
+extends layout
+
+block content
+  script.
+    $(function() {
+      var action;
+      $(".number-spinner button").mousedown(function () {
+        btn = $(this);
+        input = btn.closest('.number-spinner').find('input');
+        btn.closest('.number-spinner').find('button').prop("disabled", false);
+        
+        if (btn.attr('data-dir') == 'up') {
+          action = setInterval(function(){
+            if ( input.attr('max') == undefined || parseInt(input.val()) < parseInt(input.attr('max')) ) {
+              input.val(parseInt(input.val())+1);
+              }else{
+                btn.prop("disabled", true);
+                clearInterval(action);
+              }
+              }, 50);
+              } else {
+                action = setInterval(function(){
+                  if ( input.attr('min') == undefined || parseInt(input.val()) > parseInt(input.attr('min')) ) {
+                    input.val(parseInt(input.val())-1);
+                    }else{
+                      btn.prop("disabled", true);
+                      clearInterval(action);
+                    }
+                    }, 50);
+                  }
+                  }).mouseup(function(){
+                    clearInterval(action);
+                    });
+                    });
+  div.row
+    h1 #{title}
+    h6 For the budding collector
+  each card, i in cards
+    if 1==1
+      div.col-xs-3(style='text-align:center')
+        a(href=card.gatherer_url)
+          img.img-thumbnail#i(src=card.image_url)
+          h6(style='text-align:center;margin:0 auto') #{card.name}
+        div.container(style='padding-top:10px;margin-bottom:10px')
+            div.col-xs-2.col-xs-offset-1
+              div.input-group.number-spinner
+                span.input-group-btn.data-dwn
+                  button.btn.btn-primary(data-dir='dwn')
+                    span.glyphicon.glyphicon-minus
+                input.form-control.text-center(type='text', value='0', min='0')
+                span.input-group-btn.data-up
+                  button.btn.btn-primary(data-dir='up')
+                    span.glyphicon.glyphicon-plus
+              

@@ -18,10 +18,11 @@ router.get('/', function(req, res) {
   })
 });
 
-router.post('/test', function(req,res){
+router.post('/cards', function(req,res){
     var cardName = req.body.cardName;
     var card = tutor.set(cardName, function(err,cards){
-      res.render('test', {title:cardName, cards:cards})
+      console.log(cards[0]);
+      res.render('cards', {title:cardName, cards:cards})
     })
 
 })
