@@ -10,11 +10,19 @@ block content
   h1= title
   p Welcome to #{title}
   div.row
-    div.col-lg-3
+    div.col-lg-2
       form(method='post', action='cards')
+        legend Set Search
         div.form-group
           label(for='SetName') Core Set:
           select.form-control#SetName(name='cardName')
               each set, i in sets
                 option(value=set.name) #{set.name}
+        button(type='submit') Search
+    div.col-lg-2
+      form(method='post', action='getcard')
+        legend Card Search
+        div.form-group
+          label(for='cardName') Card Name:
+          input#cardName(type='text', name='card')
         button(type='submit') Search
