@@ -1,88 +1,58 @@
 extends layout
 
 block content
-  script.
-    $(function() {
-      var action;
-      $(".number-spinner button").mousedown(function () {
-        btn = $(this);
-        input = btn.closest('.number-spinner').find('input');
-        btn.closest('.number-spinner').find('button').prop("disabled", false);
-        
-        if (btn.attr('data-dir') == 'up') {
-          action = setInterval(function(){
-            if ( input.attr('max') == undefined || parseInt(input.val()) < parseInt(input.attr('max')) ) {
-              input.val(parseInt(input.val())+1);
-              }else{
-                btn.prop("disabled", true);
-                clearInterval(action);
-              }
-              }, 50);
-              } else {
-                action = setInterval(function(){
-                  if ( input.attr('min') == undefined || parseInt(input.val()) > parseInt(input.attr('min')) ) {
-                    input.val(parseInt(input.val())-1);
-                    }else{
-                      btn.prop("disabled", true);
-                      clearInterval(action);
-                    }
-                    }, 50);
-                  }
-                  }).mouseup(function(){
-                    clearInterval(action);
-                    });
-                    });
-  div.row
-    div.col-xs-5
-      h1 #{setName} #{rarity}
-      h6 For the budding collector
-    div.col-sm-3.col-sm-offset-1
-      form(action='cards', method='post')
-        input(type='text', value=setName, name='cardName', style='display:none')
-        button(type='submit') All
-      form(action='cards?rarity=Common', method='post')
-        input(type='text', value=setName, name='cardName', style='display:none')
-        button(type='submit') Common
-      form(action='cards?rarity=Uncommon', method='post')
-        input(type='text', value=setName, name='cardName', style='display:none')
-        button(type='submit') Uncommon
-      form(action='cards?rarity=Rare', method='post')
-        input(type='text', value=setName, name='cardName', style='display:none')
-        button(type='submit') Rare
-      form(action='cards?rarity=Mythic Rare', method='post')
-        input(type='text', value=setName, name='cardName', style='display:none')
-        button(type='submit') Mythic
-  div.row
-  each card, i in cards
-    if rarity == 'all'
-      div.col-xs-3(style='text-align:center')
-        a(href='/card?name='+card.name)
-          img.img-thumbnail(src=card.image_url,id=card.versions)
-          h6(style='text-align:center;margin:0 auto') #{card.name}
-        div.container(style='padding-top:10px;margin-bottom:10px')
-          div.col-xs-2.col-xs-offset-1
-            div.input-group.number-spinner
-              span.input-group-btn.data-dwn
-                button.btn.btn-primary(data-dir='dwn')
-                  span.glyphicon.glyphicon-minus
-              input.form-control.text-center(type='text', value='0', min='0')
-              span.input-group-btn.data-up
-                button.btn.btn-primary(data-dir='up')
-                  span.glyphicon.glyphicon-plus
-    else
-      if card.rarity == rarity
+  .container
+    div.row
+      div.col-xs-5
+        h1 #{setName} #{rarity}
+        h6 For the budding collector
+      div.col-sm-3.col-sm-offset-1
+        form(action='cards', method='post')
+          input(type='text', value=setName, name='cardName', style='display:none')
+          button(type='submit') All
+        form(action='cards?rarity=Common', method='post')
+          input(type='text', value=setName, name='cardName', style='display:none')
+          button(type='submit') Common
+        form(action='cards?rarity=Uncommon', method='post')
+          input(type='text', value=setName, name='cardName', style='display:none')
+          button(type='submit') Uncommon
+        form(action='cards?rarity=Rare', method='post')
+          input(type='text', value=setName, name='cardName', style='display:none')
+          button(type='submit') Rare
+        form(action='cards?rarity=Mythic Rare', method='post')
+          input(type='text', value=setName, name='cardName', style='display:none')
+          button(type='submit') Mythic
+    div.row
+    each card, i in cards
+      if rarity == 'all'
         div.col-xs-3(style='text-align:center')
-          a(href=card.gatherer_url)
-            img.img-thumbnail#i(src=card.image_url)
+          a(href='/card?name='+card.name)
+            img.img-thumbnail(src=card.image_url,id=card.versions)
             h6(style='text-align:center;margin:0 auto') #{card.name}
           div.container(style='padding-top:10px;margin-bottom:10px')
-              div.col-xs-2.col-xs-offset-1
-                div.input-group.number-spinner
-                  span.input-group-btn.data-dwn
-                    button.btn.btn-primary(data-dir='dwn')
-                      span.glyphicon.glyphicon-minus
-                  input.form-control.text-center(type='text', value='0', min='0')
-                  span.input-group-btn.data-up
-                    button.btn.btn-primary(data-dir='up')
-                      span.glyphicon.glyphicon-plus
-              
+            div.col-xs-2
+              div.input-group.number-spinner
+                span.input-group-btn.data-dwn
+                  button.btn.btn-primary(data-dir='dwn')
+                    span.glyphicon.glyphicon-minus
+                input.form-control.text-center(type='text', value='0', min='0')
+                span.input-group-btn.data-up
+                  button.btn.btn-primary(data-dir='up')
+                    span.glyphicon.glyphicon-plus
+      else
+        if card.rarity == rarity
+          div.col-xs-3(style='text-align:center')
+            a(href=card.gatherer_url)
+              img.img-thumbnail#i(src=card.image_url)
+              h6(style='text-align:center;margin:0 auto') #{card.name}
+            div.container(style='padding-top:10px;margin-bottom:10px')
+                div.col-xs-2
+                  div.input-group.number-spinner
+                    span.input-group-btn.data-dwn
+                      button.btn.btn-primary(data-dir='dwn')
+                        span.glyphicon.glyphicon-minus
+                    input.form-control.text-center(type='text', value='0', min='0')
+                    span.input-group-btn.data-up
+                      button.btn.btn-primary(data-dir='up')
+                        span.glyphicon.glyphicon-plus
+                
