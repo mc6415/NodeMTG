@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var tutor = require('tutor');
+var sha256 = require('sha256');
 
 function getSets(req,res,callback){
   var db = req.db;
@@ -12,13 +13,40 @@ function getSets(req,res,callback){
 }
 
 /* GET home page. */
-router.get('/', function(req, res) {
+router.get('/search', function(req, res) {
   res.clearCookie('set');
 
   getSets(req,res,function(sets){
-    res.render('index', {title:'Portal', sets:sets})
+    res.render('search', {title:'Portal', sets:sets})
   })
 });
+
+router.get('/', function(req,res){
+  res.render('index')
+})
+
+router.get('/registration', function(req,res){
+  res.render('registration')
+})
+
+router.post('/register', function(req,res){
+  var db = req.db;
+  var collection = db.get('users');
+
+  var first_name = req.body.first_name;
+  var last_name = req.body.last_name;
+  var username = req.body.username;
+  var email = req.body.email;
+  var password = sha256(req.body.password);
+
+
+  res.send(password)
+})
+
+router.post('/logon', function(req,res){
+  var password = req.body.password;
+  res.send(sha256(password));
+})
 
 router.post('/cards', function(req,res){
     var cardName = req.body.cardName;

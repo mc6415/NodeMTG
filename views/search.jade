@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  script.
+    $(document).ready(function(){
+        $('#textInput').keyup(function(){
+            $('#textOutput').val($('#textInput').val());
+          })
+      })
+  .container
+    h1= title
+    p Welcome to #{title}
+    div.row
+      div.col-lg-2
+        form(method='post', action='cards', onsubmit='return loadPage()')
+          legend Set Search
+          div.form-group
+            label(for='SetName') Core Set:
+            select.form-control#SetName(name='cardName')
+                each set, i in sets
+                  option(value=set.name) #{set.name}
+          button(type='submit') Search
+      div.col-lg-2
+        form(method='post', action='getcard')
+          legend Card Search
+          div.form-group
+            label(for='cardName') Card Name:
+            input#cardName(type='text', name='card')
+          button(type='submit') Search
+    .row
+      div.progress.progress-striped.active#loading(style='display:none')
+        div.progress-bar(style='width:45%')
+  script.
+    function loadPage(){
+      alert('button pressed');
+      return false;
+    }

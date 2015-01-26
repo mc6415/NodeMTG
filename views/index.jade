@@ -1,29 +1,25 @@
 extends layout
 
 block content
-  script.
-    $(document).ready(function(){
-        $('#textInput').keyup(function(){
-            $('#textOutput').val($('#textInput').val());
-          })
-      })
   .container
-    h1= title
-    p Welcome to #{title}
-    div.row
-      div.col-lg-2
-        form(method='post', action='cards')
-          legend Set Search
-          div.form-group
-            label(for='SetName') Core Set:
-            select.form-control#SetName(name='cardName')
-                each set, i in sets
-                  option(value=set.name) #{set.name}
-          button(type='submit') Search
-      div.col-lg-2
-        form(method='post', action='getcard')
-          legend Card Search
-          div.form-group
-            label(for='cardName') Card Name:
-            input#cardName(type='text', name='card')
-          button(type='submit') Search
+    h1 Oxford MTG Portal
+    form.form-horizontal(method='post', action='logon')
+      fieldset
+        // Form Name
+        legend Login
+        // Text input
+        .form-group
+          label.col-md-4.control-label(for='userName') Username
+          .col-md-5
+            input#userName.form-control.input-md(name='userName', type='text', placeholder='Username', required='')
+        // Password input
+        .form-group
+          label.col-md-4.control-label(for='password') Password
+          .col-md-5
+            input#password.form-control.input-md(name='password', type='password', placeholder='', required='')
+        // Button
+        .form-group
+          label.col-md-4.control-label(for='')
+          .col-md-4
+            button.btn.btn-primary(id='', name='') Login
+            a.btn.btn-info(href='/registration', style='margin-left:150px') Register

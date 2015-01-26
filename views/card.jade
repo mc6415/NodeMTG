@@ -6,17 +6,19 @@ block content
         .starter-template
           h1 #{title}
           .col-lg-2
-            img(src=card.image_url)
-            div.container(style='padding-top:10px;margin-bottom:10px')
-              div.col-xs-2
-                div.input-group.number-spinner
-                  span.input-group-btn.data-dwn
-                    button.btn.btn-primary(data-dir='dwn')
-                      span.glyphicon.glyphicon-minus
-                  input.form-control.text-center(type='text', value='0', min='0')
-                  span.input-group-btn.data-up
-                    button.btn.btn-primary(data-dir='up')
-                      span.glyphicon.glyphicon-plus
+            form(method='post', action='binderupdate')
+              img(src=card.image_url)
+              div.container(style='padding-top:10px;margin-bottom:10px')
+                div.col-xs-2
+                  div.input-group.number-spinner
+                    span.input-group-btn.data-dwn
+                      button.btn.btn-primary(data-dir='dwn', onclick='return false;')
+                        span.glyphicon.glyphicon-minus
+                    input.form-control.text-center(type='text', value='0', min='0', name=card.name)
+                    span.input-group-btn.data-up
+                      button.btn.btn-primary(data-dir='up', onclick='return false;')
+                        span.glyphicon.glyphicon-plus
+                button.btn.btn-primary() Update
           .col-lg-2.col-lg-offset-1
             p Name: #{card.name}
             p CMC: #{card.converted_mana_cost}
